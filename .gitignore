@@ -1,0 +1,31 @@
+# Book content — never commit. Source ebooks and split chapter PDFs are
+# copyrighted material; this repo is the tool, not the library.
+out/
+*.pdf
+*.epub
+*.mobi
+.pdfsplit.json
+.thumbs/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.venv/
+venv/
+
+# Test + tooling caches
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# Editors / OS
+.vscode/
+.idea/
+*.swp
+.DS_Store
