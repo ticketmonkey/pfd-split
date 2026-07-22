@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>pdfsplit — boundary review</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <div id="app">
+    <aside id="rail">
+      <h1>pdfsplit</h1>
+      <p class="rail-dir" id="rail-dir"></p>
+      <ul id="library"></ul>
+    </aside>
+
+    <main id="main">
+      <div id="empty" class="empty">Select a book from the left to review its chapter
+        boundaries.</div>
+
+      <section id="workspace" hidden>
+        <header id="book-head">
+          <h2 id="book-title"></h2>
+          <p id="book-sub" class="muted"></p>
+        </header>
+
+        <form id="toolbar" autocomplete="off">
+          <label>Level
+            <select id="opt-level"></select>
+          </label>
+          <label class="check">
+            <input type="checkbox" id="opt-notebooklm"> NotebookLM merge
+          </label>
+          <label>Floor
+            <input type="number" id="opt-floor" value="6000" min="0" step="500">
+          </label>
+          <label>Target
+            <input type="number" id="opt-target" value="12000" min="0" step="500">
+          </label>
+          <label>Ceiling
+            <input type="number" id="opt-ceiling" value="20000" min="0" step="500">
+          </label>
+          <label class="grow">Output dir
+            <input type="text" id="opt-out" value="./out">
+          </label>
+          <label class="check"><input type="checkbox" id="opt-prefix"> prefix book</label>
+          <label class="check"><input type="checkbox" id="opt-alsotext"> also .md</label>
+          <label class="check"><input type="checkbox" id="opt-header" checked> header page</label>
+          <span class="spacer"></span>
+          <label class="check anyway">
+            <input type="checkbox" id="opt-anyway"> split anyway
+          </label>
+          <button type="button" id="split-btn">Split</button>
+        </form>
+
+        <p id="summary" class="summary"></p>
+        <div id="split-result" class="split-result" hidden></div>
+        <ul id="warnings" class="warnings"></ul>
+        <div id="chunks"></div>
+      </section>
+    </main>
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

@@ -250,18 +250,34 @@ def split(books, level, notebooklm, floor, target, ceiling, out, prefix_book,
 
 
 # --------------------------------------------------------------------------- #
-# serve (stub — stage 03)
+# serve (§10)
 # --------------------------------------------------------------------------- #
 
 @click.command()
-@click.option("--library", type=click.Path(), default=None)
-@click.option("--out", type=click.Path(), default="./out")
-@click.option("--port", default=8000, show_default=True)
-@click.option("--no-browser", is_flag=True)
+@click.option("--library", type=click.Path(file_okay=False), default=".",
+              show_default=True, help="Directory of source PDFs to review.")
+@click.option("--out", type=click.Path(), default="./out", show_default=True,
+              help="Output root; each book goes in <out>/<book_slug>/.")
+@click.option("--port", default=8000, show_default=True, help="Localhost port.")
+@click.option("--no-browser", is_flag=True, help="Do not open a browser tab.")
 def serve(library, out, port, no_browser) -> None:
-    """Launch the localhost review UI (stage 03)."""
-    click.echo("serve: not yet implemented (added in stage 03)", err=True)
-    raise SystemExit(1)
+    """Launch the localhost boundary-review UI.
+
+    Binds 127.0.0.1 only — these are copyrighted books you own; nothing leaves the
+    machine and nothing is uploaded.
+    """
+    import uvicorn
+
+    from .web import create_app
+
+    app = create_app(library, out)
+    url = f"http://127.0.0.1:{port}"
+    click.echo(f"pdfsplit serve — reviewing {os.path.abspath(library)}")
+    click.echo(f"listening on {url} (127.0.0.1 only)")
+    if not no_browser:
+        import webbrowser
+        webbrowser.open(url)
+    uvicorn.run(app, host="127.0.0.1", port=port)
 
 
 @click.group()
