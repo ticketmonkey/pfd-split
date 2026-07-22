@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pdfsplit"
+version = "0.1.0"
+description = "Split DRM-free technical ebook PDFs into chapter-sized PDFs for NotebookLM."
+requires-python = ">=3.11"
+dependencies = [
+    "pymupdf",
+    "click",
+    "rich",
+    "fastapi",
+    "uvicorn",
+]
+
+[project.scripts]
+pdfsplit = "pdfsplit.cli:main"
+
+[tool.setuptools]
+packages = ["pdfsplit"]
+
+[tool.setuptools.package-data]
+pdfsplit = ["static/*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
