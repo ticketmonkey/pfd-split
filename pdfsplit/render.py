@@ -94,3 +94,15 @@ def prepend_header_page(new_doc, chunk, plan, source_filename: str,
     page = new_doc.new_page(pno=0, width=rect.width, height=rect.height)
     _draw_header(page, chunk, plan, source_filename, total_emitted)
     return page
+
+
+def thumbnail_png(page, width: int) -> bytes:
+    """Render a single page to PNG bytes at (approximately) ``width`` pixels (§10.1).
+
+    Server-side rendering is deliberate — it means the web UI needs no JavaScript PDF
+    library at all. The zoom factor is chosen so the pixmap hits the requested width;
+    the height follows the page's aspect ratio.
+    """
+    z = width / page.rect.width if page.rect.width else 1.0
+    pix = page.get_pixmap(matrix=fitz.Matrix(z, z))
+    return pix.tobytes("png")
